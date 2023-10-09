@@ -52,7 +52,7 @@ SELECT*FROM technician;
 SELECT*FROM vehicle;
 SELECT*FROM customers;
 
--- Q1: Data Cleaning (5pts): Because data were generated randomly, it is possible, even likely, that some of
+-- Because data was generated randomly, it is possible, even likely, that some of
 -- the customers have no appointments. Create a query that lists all customers having no appointments.
 -- Note that there might be other inconsistencies in the data that we will not worry about for this
 -- exercise.
@@ -64,14 +64,14 @@ LEFT JOIN appointment USING (customerID)
 WHERE appointment.appointID IS NULL;
 SELECT * FROM customer_noapp;
 
--- Q2: Service Reach (5 pts): Write a query that displays each make and model in one column, i.e. Jaguar F-
+-- Write a query that displays each make and model in one column, i.e. Jaguar F-
 -- Type, Robbins has serviced. Each make and model should appear only once in the result set. For this
 -- query ignore the year of manufacture.
 
 SELECT DISTINCT CONCAT(make, ' ', model) AS "Make and Model"
 FROM vehicle;
 
--- Q3: Technician Contact (5 pts): Robbins needs to have a list of technicians and their contact information
+-- Robbins needs to have a list of technicians and their contact information
 -- to contact them in the event of a schedule change call. Create a query that lists all technicians and
 -- their contact information.
 
@@ -79,7 +79,7 @@ FROM vehicle;
 SELECT first_name, last_name, email, telephone
 FROM technician;
 
--- Q4: Appointments by Date (5pts): Robbins would like to create a query that shows all of the
+-- Robbins would like to create a query that shows all of the
 -- appointments and services for a specific date. Include any relevant data columns. As an example of
 -- this type of query write it choosing any date that you know has appointments
 
@@ -93,7 +93,7 @@ WHERE appointment.date = "2023-06-09"
 ORDER BY appointment.date LIMIT 1
 ;
 
--- Q5: Service Due (5pts): To implement a commercial excellence program, Robbins would like to contact
+-- To implement a commercial excellence program, Robbins would like to contact
 -- customers who haven’t been in for an oil service in the last 120 days. Write a query to identify these
 -- customers and include their phone number, email and vehicle info
 
@@ -118,7 +118,7 @@ WHERE vehicle.CustomerID NOT IN (
     AND appointment.date>= DATE_SUB(CURDATE(), INTERVAL 120 DAY)
 );
 
--- Q6: Technician Revenue Analysis (5 pts): Robbins would like to see how much revenue each
+-- Robbins would like to see how much revenue each
 -- technician is responsible for. Create a query that displays each technician, number of
 -- appointments they have overseen, average revenue and the total revenue generated from
 -- these appointments. Note the technician name should appear in one field for the query. The
@@ -136,7 +136,7 @@ GROUP BY TechnicianName
 ORDER BY TotalRevenue DESC;
 
 
--- Q7: Build a query that displays the total revenue,
+-- Build a query that displays the total revenue,
 -- (price), dollars spent (cost), gross margin (price – cost) and percentage of gross margin for
 -- each of the services. Each service should be listed only once. Sort by highest Gross Margin
 -- first
@@ -150,14 +150,14 @@ FROM service
 GROUP BY description
 ORDER BY Gross_Margin DESC;
 
--- Q8: Customer Revenue (5pts): Create a query that displays the top ten customers by revenue
+-- Create a query that displays the top ten customers by revenue
 SELECT customer.customerID, customer.first_name, customer.last_name, sum(service.price) AS TotalRevenue
 FROM customer
 JOIN service ON customer.customerID = service.customerID
 GROUP BY customer.customerID, customer.first_name, customer.last_name 
 ORDER BY TotalRevenue LIMIT 10;
 
--- Q9: Appointments per month (5pts): Robbins would like to determine if they experience a constant level
+-- Robbins would like to determine if they experience a constant level
 -- of Appointments each month. Write a query that counts the number appointments in each month,
 -- and year. The query should display the month name and the number of visits corresponding to each
 -- month in each year
